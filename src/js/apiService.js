@@ -1,3 +1,6 @@
+import "@pnotify/core/dist/BrightTheme.css";
+import { error } from '@pnotify/core';
+
 const API_KEY ='21204345-b994baef221a75cda7aa18f50';
 const BASE_URL = 'https://pixabay.com/api'
 

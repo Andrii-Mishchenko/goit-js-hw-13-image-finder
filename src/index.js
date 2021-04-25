@@ -1,4 +1,6 @@
 import './styles.css';
+import "@pnotify/core/dist/BrightTheme.css";
+import { error } from '@pnotify/core';
 import cardTpl from './js/cardTpl.hbs'
 import PicturesApiService from './js/apiService'
 import LoadMoreBtn from './js/load-more-btn';
@@ -28,27 +30,30 @@ function onSearch(e){
 
     picturesApiService.query = e.currentTarget.elements.query.value;
     picturesApiService.resetPage();
-    clearPicturesContainer();
+   
 
-    // loadMoreBtn.disable();
-    // picturesApiService.fetchPictures()
-    // .then(pictures =>{    
-    //     picturesPageMurkup(pictures);    
-    //     loadMoreBtn.enable();
-    // });    
-    onLoadMore()
+    loadMoreBtn.disable();
+    picturesApiService.fetchPictures()
+    .then(pictures =>{    
+        clearPicturesContainer();
+        picturesPageMurkup(pictures);    
+        loadMoreBtn.enable();
+    });    
+    // onLoadMore()
 }
 
+let scroll = 0;
 function onLoadMore(){
+    scroll +=1400;
     loadMoreBtn.disable()
     picturesApiService.fetchPictures()
     .then(pictures => {
         picturesPageMurkup(pictures);
-        // window.scrollTo({
-        //     top: 1000,
-        //     behavior: "smooth"
-        // });
-        
+        window.scrollTo({
+            top: scroll,
+            behavior: "smooth"
+        });
+        // window.scrollTo( 0, 3000 );
         loadMoreBtn.enable();
     });
 }
